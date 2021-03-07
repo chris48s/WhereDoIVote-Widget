@@ -3,6 +3,7 @@ import MockDCAPI from '../tests/utils/MockDCAPI';
 
 export function APIClientFactory(env = process.env) {
   const API_BASE = 'https://developers.democracyclub.org.uk/api/v1';
+  const BRAND = process.env.REACT_APP_BRAND || 'DC';
 
   // https://create-react-app.dev/docs/adding-custom-environment-variables
 
@@ -11,10 +12,12 @@ export function APIClientFactory(env = process.env) {
   } else if (env.REACT_APP_API === 'sandbox') {
     return new APIClient(axios, `${API_BASE}/sandbox`, null);
   } else if (env.REACT_APP_API === 'prod') {
-    if (!('REACT_APP_API_KEY' in env)) {
-      throw new Error('REACT_APP_API_KEY must be set in order to call the production API.');
+    if (!(`REACT_APP_${BRAND}_API_KEY` in env)) {
+      throw new Error(
+        `REACT_APP_${BRAND}_API_KEY must be set in order to call the production API.`
+      );
     }
-    return new APIClient(axios, API_BASE, env.REACT_APP_API_KEY);
+    return new APIClient(axios, API_BASE, env[`REACT_APP_${BRAND}_API_KEY`]);
   } else {
     throw new Error("REACT_APP_API must be set and one of: ['mock', 'sandbox', 'prod']");
   }

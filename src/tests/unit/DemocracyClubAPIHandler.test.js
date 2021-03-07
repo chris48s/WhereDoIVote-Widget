@@ -183,9 +183,9 @@ describe('Democracy Club API client', () => {
 
 describe('API Client Factory', () => {
   it('Constructs APIClient with valid inputs', () => {
-    expect(APIClientFactory({ REACT_APP_API: 'prod', REACT_APP_API_KEY: 'f00ba2' })).toBeInstanceOf(
-      Object
-    );
+    expect(
+      APIClientFactory({ REACT_APP_API: 'prod', REACT_APP_DC_API_KEY: 'f00ba2' })
+    ).toBeInstanceOf(Object);
     expect(APIClientFactory({ REACT_APP_API: 'mock' })).toBeInstanceOf(Object);
     expect(APIClientFactory({ REACT_APP_API: 'sandbox' })).toBeInstanceOf(Object);
   });
